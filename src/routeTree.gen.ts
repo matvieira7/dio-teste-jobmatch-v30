@@ -10,12 +10,25 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApplicationsRouteImport } from './routes/applications'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as SavedRouteImport } from './routes/saved'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as JobsIndexRouteImport } from './routes/jobs.index'
+import { Route as JobsIdRouteImport } from './routes/jobs.$id'
+import { Route as ResumeIndexRouteImport } from './routes/resume.index'
+import { Route as ResumeVersionsRouteImport } from './routes/resume.versions'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApplicationsRoute = ApplicationsRouteImport.update({
+  id: '/applications',
+  path: '/applications',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -28,35 +41,136 @@ const OnboardingRoute = OnboardingRouteImport.update({
   path: '/onboarding',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SavedRoute = SavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JobsIndexRoute = JobsIndexRouteImport.update({
+  id: '/jobs/',
+  path: '/jobs/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JobsIdRoute = JobsIdRouteImport.update({
+  id: '/jobs/$id',
+  path: '/jobs/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResumeIndexRoute = ResumeIndexRouteImport.update({
+  id: '/resume/',
+  path: '/resume/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResumeVersionsRoute = ResumeVersionsRouteImport.update({
+  id: '/resume/versions',
+  path: '/resume/versions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/applications': typeof ApplicationsRoute
   '/dashboard': typeof DashboardRoute
   '/onboarding': typeof OnboardingRoute
+  '/profile': typeof ProfileRoute
+  '/saved': typeof SavedRoute
+  '/settings': typeof SettingsRoute
+  '/jobs/$id': typeof JobsIdRoute
+  '/resume/versions': typeof ResumeVersionsRoute
+  '/jobs/': typeof JobsIndexRoute
+  '/resume/': typeof ResumeIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/applications': typeof ApplicationsRoute
   '/dashboard': typeof DashboardRoute
   '/onboarding': typeof OnboardingRoute
+  '/profile': typeof ProfileRoute
+  '/saved': typeof SavedRoute
+  '/settings': typeof SettingsRoute
+  '/jobs/$id': typeof JobsIdRoute
+  '/resume/versions': typeof ResumeVersionsRoute
+  '/jobs': typeof JobsIndexRoute
+  '/resume': typeof ResumeIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/applications': typeof ApplicationsRoute
   '/dashboard': typeof DashboardRoute
   '/onboarding': typeof OnboardingRoute
+  '/profile': typeof ProfileRoute
+  '/saved': typeof SavedRoute
+  '/settings': typeof SettingsRoute
+  '/jobs/$id': typeof JobsIdRoute
+  '/resume/versions': typeof ResumeVersionsRoute
+  '/jobs/': typeof JobsIndexRoute
+  '/resume/': typeof ResumeIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/onboarding'
+  fullPaths:
+    | '/'
+    | '/applications'
+    | '/dashboard'
+    | '/onboarding'
+    | '/profile'
+    | '/saved'
+    | '/settings'
+    | '/jobs/$id'
+    | '/resume/versions'
+    | '/jobs/'
+    | '/resume/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/onboarding'
-  id: '__root__' | '/' | '/dashboard' | '/onboarding'
+  to:
+    | '/'
+    | '/applications'
+    | '/dashboard'
+    | '/onboarding'
+    | '/profile'
+    | '/saved'
+    | '/settings'
+    | '/jobs/$id'
+    | '/resume/versions'
+    | '/jobs'
+    | '/resume'
+  id:
+    | '__root__'
+    | '/'
+    | '/applications'
+    | '/dashboard'
+    | '/onboarding'
+    | '/profile'
+    | '/saved'
+    | '/settings'
+    | '/jobs/$id'
+    | '/resume/versions'
+    | '/jobs/'
+    | '/resume/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApplicationsRoute: typeof ApplicationsRoute
   DashboardRoute: typeof DashboardRoute
   OnboardingRoute: typeof OnboardingRoute
+  ProfileRoute: typeof ProfileRoute
+  SavedRoute: typeof SavedRoute
+  SettingsRoute: typeof SettingsRoute
+  JobsIdRoute: typeof JobsIdRoute
+  ResumeVersionsRoute: typeof ResumeVersionsRoute
+  JobsIndexRoute: typeof JobsIndexRoute
+  ResumeIndexRoute: typeof ResumeIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -66,6 +180,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/applications': {
+      id: '/applications'
+      path: '/applications'
+      fullPath: '/applications'
+      preLoaderRoute: typeof ApplicationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -82,13 +203,70 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OnboardingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/saved': {
+      id: '/saved'
+      path: '/saved'
+      fullPath: '/saved'
+      preLoaderRoute: typeof SavedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jobs/': {
+      id: '/jobs/'
+      path: '/jobs'
+      fullPath: '/jobs/'
+      preLoaderRoute: typeof JobsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jobs/$id': {
+      id: '/jobs/$id'
+      path: '/jobs/$id'
+      fullPath: '/jobs/$id'
+      preLoaderRoute: typeof JobsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resume/': {
+      id: '/resume/'
+      path: '/resume'
+      fullPath: '/resume/'
+      preLoaderRoute: typeof ResumeIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resume/versions': {
+      id: '/resume/versions'
+      path: '/resume/versions'
+      fullPath: '/resume/versions'
+      preLoaderRoute: typeof ResumeVersionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApplicationsRoute: ApplicationsRoute,
   DashboardRoute: DashboardRoute,
   OnboardingRoute: OnboardingRoute,
+  ProfileRoute: ProfileRoute,
+  SavedRoute: SavedRoute,
+  SettingsRoute: SettingsRoute,
+  JobsIdRoute: JobsIdRoute,
+  ResumeVersionsRoute: ResumeVersionsRoute,
+  JobsIndexRoute: JobsIndexRoute,
+  ResumeIndexRoute: ResumeIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
