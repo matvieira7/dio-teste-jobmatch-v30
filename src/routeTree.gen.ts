@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApplicationsRouteImport } from './routes/applications'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as SavedRouteImport } from './routes/saved'
 import { Route as JobsIndexRouteImport } from './routes/jobs.index'
 import { Route as JobsIdRouteImport } from './routes/jobs.$id'
@@ -37,6 +38,11 @@ const DashboardRoute = DashboardRouteImport.update({
 const OnboardingRoute = OnboardingRouteImport.update({
   id: '/onboarding',
   path: '/onboarding',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SavedRoute = SavedRouteImport.update({
@@ -70,6 +76,7 @@ export interface FileRoutesByFullPath {
   '/applications': typeof ApplicationsRoute
   '/dashboard': typeof DashboardRoute
   '/onboarding': typeof OnboardingRoute
+  '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
   '/jobs/$id': typeof JobsIdRoute
   '/resume/versions': typeof ResumeVersionsRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/applications': typeof ApplicationsRoute
   '/dashboard': typeof DashboardRoute
   '/onboarding': typeof OnboardingRoute
+  '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
   '/jobs/$id': typeof JobsIdRoute
   '/resume/versions': typeof ResumeVersionsRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/applications': typeof ApplicationsRoute
   '/dashboard': typeof DashboardRoute
   '/onboarding': typeof OnboardingRoute
+  '/profile': typeof ProfileRoute
   '/saved': typeof SavedRoute
   '/jobs/$id': typeof JobsIdRoute
   '/resume/versions': typeof ResumeVersionsRoute
@@ -106,6 +115,7 @@ export interface FileRouteTypes {
     | '/applications'
     | '/dashboard'
     | '/onboarding'
+    | '/profile'
     | '/saved'
     | '/jobs/$id'
     | '/resume/versions'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
     | '/applications'
     | '/dashboard'
     | '/onboarding'
+    | '/profile'
     | '/saved'
     | '/jobs/$id'
     | '/resume/versions'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '/applications'
     | '/dashboard'
     | '/onboarding'
+    | '/profile'
     | '/saved'
     | '/jobs/$id'
     | '/resume/versions'
@@ -140,6 +152,7 @@ export interface RootRouteChildren {
   ApplicationsRoute: typeof ApplicationsRoute
   DashboardRoute: typeof DashboardRoute
   OnboardingRoute: typeof OnboardingRoute
+  ProfileRoute: typeof ProfileRoute
   SavedRoute: typeof SavedRoute
   JobsIdRoute: typeof JobsIdRoute
   ResumeVersionsRoute: typeof ResumeVersionsRoute
@@ -175,6 +188,13 @@ declare module '@tanstack/react-router' {
       path: '/onboarding'
       fullPath: '/onboarding'
       preLoaderRoute: typeof OnboardingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/saved': {
@@ -220,6 +240,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApplicationsRoute: ApplicationsRoute,
   DashboardRoute: DashboardRoute,
   OnboardingRoute: OnboardingRoute,
+  ProfileRoute: ProfileRoute,
   SavedRoute: SavedRoute,
   JobsIdRoute: JobsIdRoute,
   ResumeVersionsRoute: ResumeVersionsRoute,
