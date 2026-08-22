@@ -202,7 +202,7 @@ function Landing() {
           </p>
           <Button asChild size="lg" className="mt-8 [font-family:'UnifrakturMaguntia',cursive]">
             <Link to="/onboarding">
-              ente agora!
+              entre agora!
               <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
           </Button>
