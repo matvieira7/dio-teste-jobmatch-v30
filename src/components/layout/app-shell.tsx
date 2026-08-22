@@ -1,4 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
+import logoMark from "@/assets/vagamatch-logo.png";
 import {
   Bookmark,
   Briefcase,
