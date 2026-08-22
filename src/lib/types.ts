@@ -4,15 +4,15 @@ export type EmploymentType = "clt" | "pj" | "estagio" | "temporario" | "freelanc
 
 export interface PersonalInfo {
   name: string;
-  photo?: string;
+  photo?: string | undefined;
   email: string;
   phone: string;
   city: string;
   state: string;
   country: string;
-  linkedin?: string;
-  github?: string;
-  portfolio?: string;
+  linkedin?: string | undefined;
+  github?: string | undefined;
+  portfolio?: string | undefined;
 }
 
 export interface CareerGoal {
@@ -21,7 +21,7 @@ export interface CareerGoal {
   seniority: Seniority;
   workModel: WorkModel;
   desiredLocation: string;
-  salaryExpectation?: number;
+  salaryExpectation?: number | undefined;
   availability: string;
 }
 
@@ -31,7 +31,7 @@ export interface Education {
   institution: string;
   degree: string;
   startDate: string;
-  endDate?: string;
+  endDate?: string | undefined;
   ongoing: boolean;
 }
 
@@ -42,7 +42,7 @@ export interface Experience {
   employmentType: EmploymentType;
   location: string;
   startDate: string;
-  endDate?: string;
+  endDate?: string | undefined;
   current: boolean;
   description: string;
   responsibilities: string[];
@@ -64,7 +64,7 @@ export interface Project {
   id: string;
   name: string;
   description: string;
-  link?: string;
+  link?: string | undefined;
   stack: string[];
 }
 
@@ -87,8 +87,8 @@ export interface Job {
   description: string;
   location: string;
   workModel: WorkModel;
-  salaryMin?: number;
-  salaryMax?: number;
+  salaryMin?: number | undefined;
+  salaryMax?: number | undefined;
   currency: string;
   seniority: Seniority;
   employmentType: EmploymentType;
@@ -139,9 +139,9 @@ export interface AtsResult {
 export interface ResumeVersion {
   id: string;
   name: string;
-  jobId?: string;
-  jobTitle?: string;
-  company?: string;
+  jobId?: string | undefined;
+  jobTitle?: string | undefined;
+  company?: string | undefined;
   createdAt: string;
   atsScore: number;
   matchScore: number;
@@ -165,7 +165,7 @@ export interface Application {
   jobId: string;
   status: ApplicationStatus;
   createdAt: string;
-  resumeVersionId?: string;
+  resumeVersionId?: string | undefined;
 }
 
 export interface Settings {
