@@ -200,7 +200,7 @@ function Landing() {
             Nenhum cadastro é necessário nesta versão. Seus dados ficam salvos apenas neste
             navegador.
           </p>
-          <Button asChild size="lg" className="mt-8">
+          <Button asChild size="lg" className="mt-8 [font-family:'UnifrakturMaguntia',cursive]">
             <Link to="/onboarding">
               Criar meu perfil <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
