@@ -31,12 +31,18 @@ const NAV = [
 
 export function Logo({ compact = false }: { compact?: boolean }) {
   return (
-    <Link to="/" className="flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-ring rounded-md">
-      <span className="grid h-8 w-8 place-items-center rounded-lg bg-primary text-primary-foreground">
-        <Briefcase className="h-4 w-4" aria-hidden />
-      </span>
+    <Link to="/" className="flex items-center gap-2.5 focus-visible:ring-2 focus-visible:ring-ring rounded-md">
+      <img
+        src={logoMark}
+        alt="VagaMatch"
+        width={32}
+        height={32}
+        className="h-8 w-8 object-contain"
+      />
       {!compact && (
-        <span className="text-base font-semibold tracking-tight text-brand-deep">VagaMatch</span>
+        <span className="text-base font-semibold uppercase tracking-[0.12em] text-brand-deep">
+          VagaMatch
+        </span>
       )}
     </Link>
   );
