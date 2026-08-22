@@ -1,16 +1,17 @@
 import type { Education, Experience, Profile } from "./types";
 
 export interface ParsedResume {
-  name?: string;
-  email?: string;
-  phone?: string;
-  linkedin?: string;
-  github?: string;
-  summary?: string;
+  name?: string | undefined;
+  email?: string | undefined;
+  phone?: string | undefined;
+  linkedin?: string | undefined;
+  github?: string | undefined;
+  summary?: string | undefined;
   skills: string[];
   experiences: Experience[];
   education: Education[];
 }
+
 
 const SKILL_DICTIONARY = [
   "JavaScript","TypeScript","React","Next.js","Node.js","Vue","Angular","Java","Spring","Python",
@@ -58,17 +59,22 @@ export function parseResumeText(text: string): ParsedResume {
   lines.forEach((line, i) => {
     const m = line.match(expRegex);
     if (m) {
-      const current = /atual|presente/i.test(m[4]);
+      const role = m[1] ?? "";
+      const company = m[2] ?? "";
+      const start = m[3] ?? "";
+      const end = m[4] ?? "";
+      const current = /atual|presente/i.test(end);
+      const next = lines[i + 1] ?? "";
       experiences.push({
         id: id(),
-        role: m[1].trim(),
-        company: m[2].trim(),
+        role: role.trim(),
+        company: company.trim(),
         employmentType: "clt",
         location: "",
-        startDate: toIsoMonth(m[3]),
-        endDate: current ? undefined : toIsoMonth(m[4]),
+        startDate: toIsoMonth(start),
+        endDate: current ? undefined : toIsoMonth(end),
         current,
-        description: lines[i + 1] && lines[i + 1].length > 20 ? lines[i + 1] : "",
+        description: next.length > 20 ? next : "",
         responsibilities: lines
           .slice(i + 1, i + 5)
           .filter((l) => /^[-•*]/.test(l))
@@ -82,17 +88,21 @@ export function parseResumeText(text: string): ParsedResume {
   lines.forEach((line) => {
     if (/(bacharelado|tecnólogo|tecnologo|licenciatura|graduação|graduacao|mba|pós|pos-graduação|ciência da computação|sistemas de informação|engenharia)/i.test(line)) {
       const years = line.match(/(\d{4})\D+(\d{4}|atual|cursando)/i);
+      const parts = line.split(/[-–|,]/);
+      const endYear = years?.[2] ?? "";
+      const hasEnd = /\d{4}/.test(endYear);
       education.push({
         id: id(),
-        course: line.split(/[-–|,]/)[0].trim().slice(0, 80),
-        institution: line.split(/[-–|,]/)[1]?.trim().slice(0, 80) ?? "",
+        course: (parts[0] ?? line).trim().slice(0, 80),
+        institution: (parts[1] ?? "").trim().slice(0, 80),
         degree: /mba|pós|pos/i.test(line) ? "Pós-graduação" : "Graduação",
-        startDate: years ? `${years[1]}-01` : "",
-        endDate: years && /\d{4}/.test(years[2]) ? `${years[2]}-12` : undefined,
-        ongoing: years ? !/\d{4}/.test(years[2]) : false,
+        startDate: years?.[1] ? `${years[1]}-01` : "",
+        endDate: hasEnd ? `${endYear}-12` : undefined,
+        ongoing: years ? !hasEnd : false,
       });
     }
   });
+
 
   return { name, email, phone, linkedin, github, summary, skills, experiences, education };
 }
