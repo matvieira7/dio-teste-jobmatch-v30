@@ -15,9 +15,9 @@ import { applyParsedResume, parseResumeText, readResumeFile } from "@/lib/resume
 import { useStore } from "@/lib/store";
 
 export const Route = createFileRoute("/resume/")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    import: search["import"] === true || search["import"] === "true" ? true : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): { import?: boolean } =>
+    search["import"] === true || search["import"] === "true" ? { import: true } : {},
+
   head: () => ({
     meta: [
       { title: "Meu currículo ATS — VagaMatch" },
